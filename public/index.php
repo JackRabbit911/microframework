@@ -2,4 +2,9 @@
 
 declare(strict_types=1);
 
-phpinfo();
+use Sys\App;
+
+require_once '../vendor/autoload.php';
+
+$app = new App;
+$app->run();
