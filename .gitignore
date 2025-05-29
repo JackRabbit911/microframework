@@ -2,3 +2,4 @@
 /vendor/*
 !/vendor/az/*
 composer.phar
+composer.lock
