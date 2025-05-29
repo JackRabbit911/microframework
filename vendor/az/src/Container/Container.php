@@ -75,6 +75,8 @@ class Container implements ContainerInterface
 
         $reflect_params = $reflect_construct->getParameters();
 
+        $args = [];
+
         foreach ($reflect_params as $reflect_param) {
             $reflect_type = $reflect_param->getType();
             $key = $reflect_type->getName();
