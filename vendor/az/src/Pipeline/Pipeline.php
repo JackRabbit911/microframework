@@ -17,7 +17,8 @@ class Pipeline implements PipelineInterface
 
     public function pipe(string|object $middlewareClass): void
     {
-        $this->pipeline[] = $this->container->get($middlewareClass);
+        $this->pipeline[] = (is_string($middlewareClass))
+            ? $this->container->get($middlewareClass) : $middlewareClass;
     }
 
     public function process(
