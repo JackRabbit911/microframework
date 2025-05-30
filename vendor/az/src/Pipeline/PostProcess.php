@@ -13,9 +13,9 @@ class PostProcess
 
     public function __construct(private ContainerInterface $container){}
 
-    public function enqueue(string $class)
+    public function enqueue(string|object $class): object
     {
-        $handler = $this->container->get($class);
+        $handler = is_string($class) ? $this->container->get($class) : $class;
 
         if (!in_array($handler, $this->handlers)) {
             $this->handlers[] = $handler;
