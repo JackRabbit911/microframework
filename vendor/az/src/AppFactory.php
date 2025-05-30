@@ -11,7 +11,8 @@ class AppFactory
     public static function create(): App
     {
         $builder = new ContainerBuilder();
-        $builder->addDefinitions('../vendor/az/src/container.php');
+        $builder->addDefinitions('../vendor/az/src/definisions.php');
+        $builder->addDefinitions(APPPATH . 'config/container.php');
         $container = $builder->build();
         return $container->get(App::class);
     }
