@@ -9,18 +9,21 @@ use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 use Psr\Http\Server\RequestHandlerInterface;
 
-class Pipeline
+class Pipeline implements PipelineInterface
 {
     private array $pipeline = [];
 
     public function __construct(private ContainerInterface $container){}
 
-    public function pipe(string $middlewareClass): void
+    public function pipe(string|object $middlewareClass): void
     {
         $this->pipeline[] = $this->container->get($middlewareClass);
     }
 
-    public function process(ServerRequestInterface $request, $defaultHandler)
+    public function process(
+        ServerRequestInterface $request,
+        RequestHandlerInterface $defaultHandler
+    ): ResponseInterface
     {
         return $this->next($defaultHandler)->handle($request);
     }
