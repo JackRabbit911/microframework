@@ -14,6 +14,7 @@ class AppFactory
         $builder->addDefinitions('../vendor/az/src/definisions.php');
         $builder->addDefinitions(APPPATH . 'config/container.php');
         $container = $builder->build();
+        $GLOBALS['container'] = $container;
         return $container->get(App::class);
     }
 }
