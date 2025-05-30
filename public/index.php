@@ -2,16 +2,14 @@
 
 declare(strict_types=1);
 
-use Sys\App;
-use Sys\Container\Container;
+use Sys\AppFactory;
 
 define('APPPATH', '../application/');
 
+require_once '../vendor/az/src/exceptionHandler.php';
+require_once '../vendor/az/src/autoload.php';
 require_once '../vendor/autoload.php';
-
 require_once '../vendor/az/src/library.php';
+require_once APPPATH . 'config/bootstrap.php';
 
-$container = new Container();
-$container->addDefinitions();
-$app = new App;
-$app->run();
+AppFactory::create()->run();
