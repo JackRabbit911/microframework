@@ -18,7 +18,9 @@ class Invoker
         [$class, $method] = $this->getRef($callable);
         $args = $this->getArgs($method, $args);
 
-        return $method->invokeArgs($class, $args);
+        return ($method instanceof ReflectionFunction)
+            ? $method->invokeArgs($args)
+            : $method->invokeArgs($class, $args);
     }
 
     private function getRef($callable)
@@ -28,17 +30,19 @@ class Invoker
             return [$class, new ReflectionMethod($class, $method)];
         }
 
+        if ($callable instanceof Closure) {
+            return [null, new ReflectionFunction($callable)];
+        }
+
         if (is_object($callable)) {
             return [$callable, new ReflectionMethod($callable, '__invoke')];
         }
 
-        if ($callable instanceof Closure) {
-            return [null, new ReflectionFunction($callable)];
-        }
     }
 
     private function getArgs($ref, $args)
     {
+        $result = [];
         $params = $ref->getParameters();
 
         foreach ($params as $param) {
@@ -49,11 +53,13 @@ class Invoker
     
                 if ($type) {
                     $instance = $this->c->get($type);
-                    $args[$param->getName()] = $instance;
+                    $result[$name] = $instance;
                 }   
+            } elseif (isset($args[$name])) {
+                $result[$name] = $args[$name];
             }
         }
 
-        return $args;
+        return $result;
     }
 }
