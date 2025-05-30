@@ -14,6 +14,12 @@ function dd(...$values)
     exit;
 }
 
+function container()
+{
+    global $container;
+    return $container;
+}
+
 function accept(string $headerKey, ?string $part = null): float|array
 {
     function quality(string $header)
