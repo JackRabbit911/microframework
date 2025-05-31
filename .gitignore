@@ -1,4 +1,5 @@
 /storage/*
 /vendor/*
-!/vendor/az/*
+!/vendor/az/
 composer.phar
+composer.lock

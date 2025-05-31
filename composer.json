@@ -1,0 +1,14 @@
+{
+    "require": {
+        "httpsoft/http-server-request": "^1.1",
+        "httpsoft/http-response": "^1.1",
+        "alpha-zeta/simple-route": "^1.0",
+        "httpsoft/http-emitter": "^1.1",
+        "php-di/php-di": "^7.0"
+    },
+    "autoload": {
+        "psr-4": {
+            "Sys\\": "vendor/az/src/"
+        }
+    }
+}
