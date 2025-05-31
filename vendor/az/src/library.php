@@ -20,6 +20,14 @@ function container()
     return $container;
 }
 
+function render($file, $data)
+{
+    extract($data, EXTR_SKIP);               
+    ob_start();
+    include $file;
+    return ob_get_clean();
+}
+
 function accept(string $headerKey, ?string $part = null): float|array
 {
     function quality(string $header)
