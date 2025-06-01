@@ -28,6 +28,33 @@ function render($file, $data)
     return ob_get_clean();
 }
 
+function env(?string $key = null, $default = null)
+{
+    static $entries;
+
+    if (!$entries) {
+        $loader = new josegonzalez\Dotenv\Loader('../.env');
+        $entries = $loader->parse()->toArray();
+    }
+
+    $entry = (isset($entries[$key])) ? $entries[$key] : $default;
+
+    if (is_string($entry)) {
+        if (preg_match('/\{(.+?)\}/', $entry, $matches)) {
+            $entry = $matches[1];
+            $dc = get_defined_constants(true)['user'];
+            $entry = $dc[$entry];
+        }
+
+        if (preg_match('/\[(.+?)\]/', $entry, $matches)) {
+            $entry = $matches[1];
+            $entry = explode(',', str_replace([' ', "'", '"'], '', $entry));
+        }
+    }
+
+    return ($key) ? $entry : $entries;
+}
+
 function accept(string $headerKey, ?string $part = null): float|array
 {
     function quality(string $header)
