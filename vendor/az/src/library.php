@@ -43,6 +43,11 @@ function env(?string $key = null, $default = null)
         if (preg_match('/\{(.+?)\}/', $entry, $matches)) {
             $entry = $matches[1];
             $dc = get_defined_constants(true)['user'];
+
+            if (!isset($dc[$entry])) {
+                throw new Error(sprintf('Undefined constant "%s"', $entry));
+            }
+            
             $entry = $dc[$entry];
         }
 
