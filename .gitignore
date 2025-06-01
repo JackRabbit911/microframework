@@ -3,3 +3,4 @@
 !/vendor/az/
 composer.phar
 composer.lock
+.env
