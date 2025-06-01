@@ -11,6 +11,7 @@ define('APPPATH', 'application/');
 define('SYSPATH', 'vendor/az/src/');
 
 require_once 'vendor/autoload.php';
+require_once SYSPATH . 'autoload.php';
 require_once SYSPATH . 'library.php';
 
 $container = new Container();
