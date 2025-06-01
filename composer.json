@@ -4,7 +4,9 @@
         "httpsoft/http-response": "^1.1",
         "alpha-zeta/simple-route": "^1.0",
         "httpsoft/http-emitter": "^1.1",
-        "php-di/php-di": "^7.0"
+        "php-di/php-di": "^7.0",
+        "symfony/console": "^7.3",
+        "josegonzalez/dotenv": "^4.0"
     },
     "autoload": {
         "psr-4": {

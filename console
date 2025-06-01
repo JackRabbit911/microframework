@@ -1,0 +1,25 @@
+#!/usr/bin/php
+<?php
+
+declare(strict_types=1);
+
+use DI\Container;
+use Symfony\Component\Console\Application;
+use Symfony\Component\Console\CommandLoader\FactoryCommandLoader;
+
+define('APPPATH', 'application/');
+define('SYSPATH', 'vendor/az/src/');
+
+require_once 'vendor/autoload.php';
+require_once SYSPATH . 'autoload.php';
+require_once SYSPATH . 'library.php';
+
+$container = new Container();
+
+$commands = require_once APPPATH . 'config/console_commands.php';
+$commandLoader = new FactoryCommandLoader($commands);
+
+$application = $container->get(Application::class);
+$application->setCommandLoader($commandLoader);
+
+$application->run();
