@@ -15,8 +15,14 @@ class Pipeline implements PipelineInterface
 
     public function __construct(private ContainerInterface $container){}
 
-    public function pipe(string|object $middlewareClass): void
+    public function pipe(string|object|array $middlewareClass): void
     {
+        if (is_array($middlewareClass)) {
+            foreach ($middlewareClass as $item) {
+                $this->pipe($item);
+            }
+        }
+        
         $this->pipeline[] = (is_string($middlewareClass))
             ? $this->container->get($middlewareClass) : $middlewareClass;
     }
