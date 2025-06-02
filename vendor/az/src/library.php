@@ -60,6 +60,14 @@ function env(?string $key = null, $default = null)
     return ($key) ? $entry : $entries;
 }
 
+function logger(string $msg, $file = 'test.log')
+{
+    $file = '../storage/logs/' . $file;
+    $msg = date('d.m.y H:i:s') . ' ' . $msg . PHP_EOL;
+
+    file_put_contents($file, $msg, FILE_APPEND);
+}
+
 function accept(string $headerKey, ?string $part = null): float|array
 {
     function quality(string $header)

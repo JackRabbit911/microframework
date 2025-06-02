@@ -2,20 +2,20 @@
 
 namespace Sys\Middleware;
 
+use Sys\Pipeline\Pipeline;
+use Sys\Pipeline\PostProcess;
+use Sys\PostProcessHandler\IPostProcessHandler;
+use Az\Route\Route;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 use Psr\Http\Server\MiddlewareInterface;
 use Psr\Http\Server\RequestHandlerInterface;
-use Az\Route\Route;
 use Psr\Container\ContainerInterface;
 use ReflectionClass;
 use ReflectionFunction;
 use ReflectionMethod;
-use Sys\Observer\Interface\Listener;
-use Sys\Observer\Interface\Observer;
-use Sys\Pipeline\Pipeline;
-use Sys\Pipeline\PostProcess;
 use Error;
+use Sys\PostProcessHandler\ObserverInterface;
 
 class ControllerAttribute implements MiddlewareInterface
 {
@@ -66,8 +66,8 @@ class ControllerAttribute implements MiddlewareInterface
     {
         match (true) {
             ($instance instanceof MiddlewareInterface) => $this->pipeline->pipe($instance),
-            ($instance instanceof Observer) => $this->postProcess->enqueue($instance->update($controller)),
-            ($instance instanceof Listener) => $this->postProcess->enqueue($instance),
+            ($instance instanceof ObserverInterface) => $this->postProcess->enqueue($instance)->update($this),
+            ($instance instanceof IPostProcessHandler) => $this->postProcess->enqueue($instance),
         };
     }
 
