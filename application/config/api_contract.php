@@ -2,13 +2,14 @@
 
 return [
     'hosts' => [
-        'localhost',
-        'localhost:3000',
-        'localhost:5500',
-        'localhost:5173',
+        'http://localhost',
+        'http://localhost:3000',
+        'http://localhost:5500',
+        'http://localhost:5173',
     ],
     'headers' => [
         'Authorization',
+        'Content-Type',
         'X-Token',
     ],
     'methods' => [
@@ -17,6 +18,6 @@ return [
         'delete',
         'patch',
     ],
-    'max_age' => 30,
+    // 'max_age' => 30,
     'allow_credentials' => true,
 ];
