@@ -2,6 +2,6 @@
 
 declare(strict_types=1);
 
-use App\Middleware\CORS;
+use Sys\Middleware\CORS;
 
 $this->pipeline->pipe(CORS::class);
