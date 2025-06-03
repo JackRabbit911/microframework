@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace App\Middleware;
+namespace Sys\Middleware;
 
 use HttpSoft\Response\EmptyResponse;
 use Psr\Http\Message\ResponseInterface;

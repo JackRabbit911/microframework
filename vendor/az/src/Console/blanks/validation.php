@@ -5,10 +5,9 @@ declare(strict_types=1);
 
 namespace <?=$namespace?>;
 
-use Az\Validation\Middleware\ValidationMiddleware;
-use Psr\Http\Message\ServerRequestInterface;
+use Az\Validation\Middleware\ApiValidationMiddleware;
 
-class <?=$classname?> extends ValidationMiddleware
+class <?=$classname?> extends ApiValidationMiddleware
 {
     protected function setRules($request)
     {
