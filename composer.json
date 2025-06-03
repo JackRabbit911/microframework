@@ -6,7 +6,10 @@
         "httpsoft/http-emitter": "^1.1",
         "php-di/php-di": "^7.0",
         "symfony/console": "^7.3",
-        "josegonzalez/dotenv": "^4.0"
+        "josegonzalez/dotenv": "^4.0",
+        "alpha-zeta/validation": "^1.0",
+        "firebase/php-jwt": "^6.11",
+        "pecee/pixie": "^4.16"
     },
     "autoload": {
         "psr-4": {
