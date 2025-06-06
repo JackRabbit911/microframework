@@ -33,7 +33,8 @@ function env(?string $key = null, $default = null)
     static $entries;
 
     if (!$entries) {
-        $loader = new josegonzalez\Dotenv\Loader('../.env');
+        $envfile = (is_file('../.env')) ? '../.env' : '.env'; 
+        $loader = new josegonzalez\Dotenv\Loader($envfile);
         $entries = $loader->parse()->toArray();
     }
 
