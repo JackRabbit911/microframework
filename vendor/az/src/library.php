@@ -60,6 +60,32 @@ function env(?string $key = null, $default = null)
     return ($key) ? $entry : $entries;
 }
 
+function config(string $file, ?string $path = null, $default = null)
+{
+    static $cache = [];
+
+    if (!isset($cache[$file])) {
+        $array = require_once APPPATH . 'config/' . $file . '.php';
+        $cache[$file] = $array;
+    }
+      
+    return $path ? dot($cache[$file], $path, $default) : $cache[$file];
+}
+
+function dot(&$arr, $path, $default = null, $separator = '.') {
+    $keys = explode($separator, $path);
+
+    foreach ($keys as $key) {
+        if (!is_array($arr) || !array_key_exists($key, $arr)) {
+            $arr = &$default;
+        } else {
+            $arr = &$arr[$key];
+        }       
+    }
+
+    return $arr;
+}
+
 function logger(string $msg, $file = 'test.log')
 {
     $file = '../storage/logs/' . $file;
