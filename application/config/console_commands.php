@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 use Symfony\Component\Console\Command\Command;
 use Sys\Console\Command\Make\Controller;
+use Sys\Console\Command\Make\Database;
 use Sys\Console\Command\Make\MakeCommand;
 use Sys\Console\Command\Make\Middleware;
 use Sys\Console\Command\Make\Validation;
@@ -20,4 +21,7 @@ return [
 
     'make:validation' => static fn(): Command => $container->get(Validation::class),
     'mk:valid' => static fn(): Command => $container->get(Validation::class),
+
+    'make:database' => static fn(): Command => $container->get(Database::class),
+    'mk:db' => static fn(): Command => $container->get(Database::class),
 ];

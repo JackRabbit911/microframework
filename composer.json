@@ -9,7 +9,8 @@
         "josegonzalez/dotenv": "^4.0",
         "alpha-zeta/validation": "^1.0",
         "firebase/php-jwt": "^6.11",
-        "pecee/pixie": "^4.16"
+        "pecee/pixie": "^4.16",
+        "guzzlehttp/guzzle": "^7.9"
     },
     "autoload": {
         "psr-4": {
