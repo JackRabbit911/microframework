@@ -22,14 +22,14 @@ final class Controller extends BaseController
     {
         $model = str_replace('/', '\\', $model);
         $args = $this->request->getQueryParams();
-
+        
         $instance = $this->container->make($model, $args);
-
+        
         $body = $this->request->getBody()->getContents();       
         $body = json_decode($body, true);
-
+        
         $data = $this->container->call([$instance, $method], $body);
-
+        
         return new JsonResponse($data);
     }
 }
