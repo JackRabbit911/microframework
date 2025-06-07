@@ -8,6 +8,7 @@ use Sys\Console\Command\Make\CRUD;
 use Sys\Console\Command\Make\Database;
 use Sys\Console\Command\Make\MakeCommand;
 use Sys\Console\Command\Make\Middleware;
+use Sys\Console\Command\Make\Migration;
 use Sys\Console\Command\Make\Model;
 use Sys\Console\Command\Make\Validation;
 
@@ -29,4 +30,7 @@ return [
 
     'make:database' => static fn(): Command => $container->get(Database::class),
     'mk:db' => static fn(): Command => $container->get(Database::class),
+
+    'make:migration' =>static fn(): Command => container()->get(Migration::class),
+    'mk:mgrt' =>static fn(): Command => container()->get(Migration::class),
 ];
