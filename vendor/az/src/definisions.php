@@ -5,6 +5,8 @@ use Az\Route\RouterInterface;
 use HttpSoft\Emitter\EmitterInterface;
 use HttpSoft\Emitter\SapiEmitter;
 use HttpSoft\ServerRequest\ServerRequestCreator;
+use Pecee\Pixie\Connection;
+use Pecee\Pixie\QueryBuilder\IQueryBuilderHandler;
 use Psr\Container\ContainerInterface;
 use Psr\Http\Message\ServerRequestInterface;
 use Psr\Http\Server\RequestHandlerInterface;
@@ -20,4 +22,6 @@ return [
     RequestHandlerInterface::class => new DefaultHandler,
     PostProcess::class => fn(ContainerInterface $c) => new PostProcess($c),
     EmitterInterface::class => new SapiEmitter(),
+    IQueryBuilderHandler::class => fn()
+        => (new Connection('mysql', config('database', 'mysql')))->getQueryBuilder(),
 ];
