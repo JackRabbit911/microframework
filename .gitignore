@@ -1,6 +1,7 @@
 /storage/*
 /vendor/*
 !/vendor/az/
+/public/todb/*
 composer.phar
 composer.lock
 .env
