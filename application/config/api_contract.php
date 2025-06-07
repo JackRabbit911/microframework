@@ -10,14 +10,16 @@ return [
     'headers' => [
         'Authorization',
         'Content-Type',
-        'X-Token',
+        'X-Bearer',
+        'X-Refresh',
     ],
     'methods' => [
         'get',
         'post',
         'delete',
         'patch',
+        'put',
     ],
-    // 'max_age' => 30,
+    'max_age' => 30,
     'allow_credentials' => true,
 ];
