@@ -42,7 +42,7 @@ class Migration extends Command
         if ($result === CreateClass::NO_BLANK) {
             $io->error("Blank not found");
         } elseif ($result === CreateClass::NO_DIR) {
-            $io->error("Directory 'migrations' is not writable");
+            $io->error('Directory "' . CreateClass::DIR . '" is not writable');
         } else {
             $io->success("File $result was created succefully");
         }

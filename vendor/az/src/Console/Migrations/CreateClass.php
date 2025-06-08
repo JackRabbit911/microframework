@@ -8,8 +8,7 @@ class CreateClass
 {
     const NO_BLANK = 1;
     const NO_DIR = 2;
-
-    private string $dir = APPPATH . 'migrations/';
+    const DIR = APPPATH . 'migrations/';
 
     public function create(string $table, string $action = 'create')
     {
@@ -21,19 +20,19 @@ class CreateClass
             return self::NO_BLANK;
         }
 
-        if (!is_dir($this->dir)) {
-            mkdir($this->dir, 0775, true);
+        if (!is_dir(self::DIR)) {
+            mkdir(self::DIR, 0775, true);
         }
         
-        if (!is_writable($this->dir)) {
-            chmod($this->dir, 0775);
+        if (!is_writable(self::DIR)) {
+            chmod(self::DIR, 0775);
         }
         
-        if (!is_dir($this->dir) || !is_writable($this->dir)) {            
+        if (!is_dir(self::DIR) || !is_writable(self::DIR)) {            
             return self::NO_DIR;
         }
 
-        file_put_contents($this->dir . $filename, $content);
+        file_put_contents(self::DIR . $filename, $content);
 
         return $filename;
     }
