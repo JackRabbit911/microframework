@@ -37,15 +37,15 @@ class CreateClass
         return $filename;
     }
 
+    public function getClassName(string $filename)
+    {
+        return preg_replace(['/^[\D\/]*|-/', '/.php$/'], ['_', ''], $filename);
+    }
+
     private function getFileName(string $table, string $action)
     {
         $dateFormat = date('Y-m-d_H-i-s');
         return $dateFormat . '_' . $action . '-table-' . $table . '.php';
-    }
-
-    private function getClassName(string $filename)
-    {
-        return preg_replace(['/^[\D\/]*|-/', '/.php$/'], ['_', ''], $filename);
     }
 
     private function getData(string $filename, string $table, string $action)
