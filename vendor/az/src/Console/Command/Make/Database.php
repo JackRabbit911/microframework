@@ -22,8 +22,6 @@ class Database extends Command
             ->setDescription('Creates a new database.')
             ->setHelp('This command allows you to create a new database...')
             ->addArgument('connection', InputArgument::OPTIONAL, 'db connection')
-            ->addArgument('db_host', InputArgument::OPTIONAL, 'db host')
-            ->addArgument('db_root_password', InputArgument::OPTIONAL, 'db root password')
             ->addArgument('db_name', InputArgument::OPTIONAL, 'db name')
             ->addArgument('db_password', InputArgument::OPTIONAL, 'db password')
             ->addArgument('db_username', InputArgument::OPTIONAL, 'db username')
@@ -39,8 +37,8 @@ class Database extends Command
 
         $args = [
             'connection' => $connection,
-            'host' => $input->getArgument('db_host') ?? $config['host'],
-            'root_password' => $input->getArgument('db_root_password') ?? $config['root_password'],
+            'host' => $config['host'],
+            'root_password' => env('DB_ROOT_PASSWORD'),
         ];
 
         $db_name = $input->getArgument('db_name') ?? $config['database'];
