@@ -5,7 +5,7 @@ declare(strict_types=1);
 use Sys\AppFactory;
 
 define('APPPATH', '../application/');
-define('SYSPATH', '../vendor/az/src');
+define('SYSPATH', '../vendor/az/src/');
 
 require_once '../vendor/az/src/exceptionHandler.php';
 require_once '../vendor/az/src/autoload.php';
