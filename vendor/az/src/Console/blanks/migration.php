@@ -3,14 +3,14 @@
 
 class <?=$classname?> 
 {
-    public function up()
+    public static function up()
     {
         return "<?=$up?> (
 
         )";
     }
 
-    public function down()
+    public static function down()
     {
         return "<?=$down?>";
     }
