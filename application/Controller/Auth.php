@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Controller;
 
 use App\Middleware\AuthValidation;
+use App\Model\ModelAuth;
 use App\Repository\O2AuthRepo;
 use Sys\Controller\BaseController;
 use Az\Route\Route;
@@ -15,13 +16,16 @@ class Auth extends BaseController
     public function __construct(){}
 
     #[Route(methods: ['post', 'get'])]
-    // #[AuthValidation]
-    public function login(O2AuthRepo $repo)
+    #[AuthValidation]
+    public function login(ModelAuth $model, O2AuthRepo $repo)
     {
+        $user = $model->get();
+
         return new JsonResponse([
             'success' => true,
-            'Bearer' => $repo->generateAccessToken(),
-            'Refresh' => $repo->generateRefreshToken(),
+            'Bearer' => $repo->encodeJWT($user),
+            'Refresh' => $repo->createRefreshToken($user->id),
+            'user' => $user,
         ]);
     }
 
