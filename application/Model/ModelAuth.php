@@ -33,14 +33,14 @@ class ModelAuth extends MysqlModel
         }
     }
 
-    public function find(int|string $id, string $column = 'id'): User
+    public function find(int|string $id, string $column = 'id'): ?User
     {
         $user = $this->qb->table('users')
             ->select('id', 'name', 'password')
             ->where($column, '=', $id)
             ->first();
 
-        return User::fromObject($user);
+        return ($user) ? User::fromObject($user) : null;
     }
 
     public function get()
