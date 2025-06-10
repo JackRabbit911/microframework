@@ -52,7 +52,6 @@ class ControllerAttribute implements MiddlewareInterface
                 $instance = $attr->newInstance();
             } catch (Error $e) {
                 $args = $attr->getArguments();
-                $args['_class'] = $routeHandler[0] ?? $routeHandler;
                 $instance = $this->container->make($attr->getName(), $args);
             }
 
