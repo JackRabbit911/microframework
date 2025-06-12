@@ -6,9 +6,11 @@ namespace App\Controller;
 
 use App\Middleware\AuthValidation;
 use App\Model\ModelAuth;
+use App\Model\ModelRefreshToken;
 use App\Repository\O2AuthRepo;
 use Sys\Controller\BaseController;
 use Az\Route\Route;
+use HttpSoft\Response\EmptyResponse;
 use HttpSoft\Response\JsonResponse;
 
 class Auth extends BaseController
@@ -30,8 +32,11 @@ class Auth extends BaseController
     }
 
     #[Route(methods: 'delete')]
-    public function logout()
+    public function logout(ModelRefreshToken $model)
     {
-
+        $data = $this->request->getBody()->getContents();
+        $token = json_decode($data)->token;
+        $model->delete($token);
+        return new EmptyResponse(205);
     }
 }
