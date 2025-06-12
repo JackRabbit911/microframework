@@ -51,9 +51,11 @@ class O2AuthRepo
   
     public function encodeJWT(User $user, ?int $iat = null)
     {
+        $iat = $iat ?? time();
+
         $payload = [
             'iss' => $this->config['iss'],
-            'iat' => $iat ?? time(),
+            'iat' => $iat,
             'exp' => $iat + $this->config['lifetime'],
             'user' => [
                 'id' => $user->id,
