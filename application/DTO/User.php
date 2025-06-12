@@ -8,22 +8,16 @@ class User
 {
     public static function fromObject(object $user)
     {
-        return new self($user->id, $user->name, $user->password);
+        return new self($user->id, $user->name);
     }
 
     public static function fromArray(array $user)
     {
-        return new self($user['id'], $user['name'], $user['password']);
+        return new self($user['id'], $user['name']);
     }
 
     public function __construct(
         public readonly int $id,
         public readonly string $name,
-        private string $password
     ){}
-
-    public function password()
-    {
-        return $this->password;
-    }
 }

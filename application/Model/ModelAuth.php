@@ -19,14 +19,17 @@ class ModelAuth extends MysqlModel
 
     public function isPairEmailPswd(string $password, string $email): bool
     {
-        $user = $this->find($email, 'email');
+        $user = $this->qb->table('users')
+            ->select('id', 'name', 'password')
+            ->where('email', '=', $email)
+            ->first();
 
         if (!$user) {
             return false;
         }
 
-        if (password_verify($password, $user->password())) {
-            $this->user = $user;
+        if (password_verify($password, $user->password)) {
+            $this->user = User::fromObject($user);
             return true;
         } else {
             return false;
@@ -36,7 +39,7 @@ class ModelAuth extends MysqlModel
     public function find(int|string $id, string $column = 'id'): ?User
     {
         $user = $this->qb->table('users')
-            ->select('id', 'name', 'password')
+            ->select('id', 'name')
             ->where($column, '=', $id)
             ->first();
 
