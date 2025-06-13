@@ -28,6 +28,10 @@ class O2AuthGuard implements MiddlewareInterface
         RequestHandlerInterface $handler
     ): ResponseInterface
     {
+        if ($this->exceptUri($request)) {
+            return $handler->handle($request);
+        }
+
         $token = $request->getHeaderLine('Authorization');
 
         if ($token) {
@@ -77,11 +81,26 @@ class O2AuthGuard implements MiddlewareInterface
         $result = $this->repo->checkRefreshToken($token);
 
         if ($result) {
-            $user = $this->modelAuth->find($result->user->id);
+            if ($result->token !== $token) {
+                 $this->responseHeaders->add(['X-Refresh' => $result->token]);
+            }
+
+            $user = $this->modelAuth->find($result->user_id);
             return $this->repo->encodeJWT($user);
             
         } else {
             return new EmptyResponse(401);
         }
+    }
+
+    private function exceptUri(ServerRequestInterface $request)
+    {
+        $uri = $request->getUri()->getPath();
+        
+        if (in_array($uri, config('o2auth', 'exclude_urls'))) {
+            return true;
+        }
+
+        return false;
     }
 }

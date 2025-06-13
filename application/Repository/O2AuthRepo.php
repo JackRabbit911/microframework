@@ -77,7 +77,7 @@ class O2AuthRepo
         }
     }
 
-    private function deleteOrUpdate($token, $row)
+    private function deleteOrUpdate($token, &$row)
     {
         if ($row) {
             $refresh_period = $this->config['refresh_update'];
@@ -85,6 +85,7 @@ class O2AuthRepo
             if ($last_activity + $refresh_period < time()) {
                 $data = $this->generateRefreshToken($row->user_id);
                 $this->model->update($token, ['token' => $data['token']]);
+                $row->token = $data['token'];
             }
         } else {
             $this->model->delete($token);
