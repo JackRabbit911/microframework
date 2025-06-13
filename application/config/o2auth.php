@@ -10,5 +10,6 @@ return [
     'exclude_urls' => [
         '/auth/login',
         '/auth/logout',
+        '/console'
     ]
 ];

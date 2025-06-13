@@ -96,9 +96,11 @@ class O2AuthGuard implements MiddlewareInterface
     private function exceptUri(ServerRequestInterface $request)
     {
         $uri = $request->getUri()->getPath();
-        
-        if (in_array($uri, config('o2auth', 'exclude_urls'))) {
-            return true;
+
+        foreach (config('o2auth', 'exclude_urls') as $start) {
+            if (str_starts_with($uri, $start)) {
+                return true;
+            }
         }
 
         return false;
