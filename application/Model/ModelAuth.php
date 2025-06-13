@@ -21,8 +21,7 @@ class ModelAuth extends MysqlModel
     {
         $user = $this->qb->table('users')
             ->select('id', 'name', 'password')
-            ->where('email', '=', $email)
-            ->first();
+            ->find($email, 'email');
 
         if (!$user) {
             return false;
@@ -40,8 +39,7 @@ class ModelAuth extends MysqlModel
     {
         $user = $this->qb->table('users')
             ->select('id', 'name')
-            ->where($column, '=', $id)
-            ->first();
+            ->find($id, $column);
 
         return ($user) ? User::fromObject($user) : null;
     }
