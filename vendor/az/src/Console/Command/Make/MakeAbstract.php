@@ -13,6 +13,7 @@ abstract class MakeAbstract extends Command
 {
     protected string $folder = '';
     protected string $blank = '';
+    protected array $data = [];
 
     protected function execute(InputInterface $input, OutputInterface $output): int
     {
@@ -34,7 +35,9 @@ abstract class MakeAbstract extends Command
             'namespace' => $this->getNamespace($dir),
             'classname' => $info['filename'],
         ];
-      
+
+        $data = array_merge($this->data, $data);
+
         if (!is_dir($dir)) {
             mkdir($dir, 0775, true);
         }
