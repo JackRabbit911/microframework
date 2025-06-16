@@ -20,5 +20,10 @@
     "require-dev": {
         "phpunit/phpunit": "^11",
         "fakerphp/faker": "^1.24"
+    },
+    "autoload-dev": {
+        "psr-4": { 
+            "Tests\\Sys\\": "tests/"
+        }
     }
 }
