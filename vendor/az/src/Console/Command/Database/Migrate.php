@@ -10,16 +10,11 @@ use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Style\SymfonyStyle;
-use Sys\Console\Migrations\Migrate as MigrationsMigrate;
+use Sys\Console\Migrations\Migrate as Migrator;
 
 #[AsCommand(name: 'db:migrate', aliases: ['db:mgrt'])]
 class Migrate extends Command
 {
-    public function __construct(private MigrationsMigrate $migrator)
-    {
-        parent::__construct();
-    }
-
     protected function configure(): void
     {
         $this
@@ -31,15 +26,17 @@ class Migrate extends Command
 
     protected function execute(InputInterface $input, OutputInterface $output): int
     {
+        $migrator = container()->get(Migrator::class);
+
         $io = new SymfonyStyle($input, $output);
         $action = $input->getArgument('action') ?? 'show';
 
-        if (!method_exists($this->migrator, $action)) {
+        if (!method_exists($migrator, $action)) {
             $io->error("Argument '$action' not recognized");
             return Command::SUCCESS;
         }
 
-        [$title,$result] = $this->migrator->$action();
+        [$title,$result] = $migrator->$action();
 
         $io->title($title);
         $io->text($result);
