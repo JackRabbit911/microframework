@@ -18,7 +18,20 @@ require_once APPPATH . 'config/bootstrap.php';
 
 $container = AppFactory::getContainer();
 
-$commands = require_once APPPATH . 'config/console_commands.php';
+if (is_file(SYSPATH . 'console_commands.php')) {
+    $commands = require_once SYSPATH . 'console_commands.php';
+} else {
+    $commands = [];
+}
+
+if (is_file(APPPATH . 'config/console_commands.php')) {
+    $custom_commands = require_once APPPATH . 'config/console_commands.php';
+} else {
+    $custom_commands = [];
+}
+
+$commands = array_merge($commands, $custom_commands);
+
 $commandLoader = new FactoryCommandLoader($commands);
 
 $application = $container->get(Application::class);
