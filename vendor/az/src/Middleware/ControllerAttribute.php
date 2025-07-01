@@ -65,7 +65,8 @@ class ControllerAttribute implements MiddlewareInterface
     {
         match (true) {
             ($instance instanceof MiddlewareInterface) => $this->pipeline->pipe($instance),
-            ($instance instanceof ObserverInterface) => $this->postProcess->enqueue($instance)->update($this),
+            ($instance instanceof ObserverInterface) => $this->postProcess
+                ->enqueue($instance)->update($controller),
             ($instance instanceof IPostProcessHandler) => $this->postProcess->enqueue($instance),
         };
     }
